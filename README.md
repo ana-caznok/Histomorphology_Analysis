@@ -31,23 +31,135 @@ The computational methodology was divided into three parts: a histomorphological
   <em>Figure 1: Overview of Methodology</em>
 </p> 
 
-### Histomorphology
-HE histopathological images were annotated and masks were created with QuPath. QuPath measurements were exported to an excel table that is than read and analysed by python scripts available in this repository. 
- 
-### Gene expression 
-Immunohistochemitry images were analysed through an ImageJ macro .ijm available in this repository.
 
-### Joining information
-To join information in both datasets we also used python scripts available in the repository
+### 1. Histomorphology (QuPath → Python)
+- Hematoxylin & Eosin (HE) histopathological images were annotated in QuPath.  
+- QuPath exported measurements as `.csv` files, one per image, inside a folder:
+  ```
+  <base_path>/database_csvs/
+  ```
+- These CSVs are then aggregated by patient using:
+  ```bash
+  python results_to_dataframe_final.py <base_path>
+  ```
+- **Main output**:
+  ```
+  <base_path>/morpho_results/area_morpho.csv
+  ```
+  → patient-level areas and % of tissues (loose connective, adipose, muscle, dense connective).
 
-## Getting Started <a name="start"></a>
-1. Clone this repository: 
+---
 
-2. Then install al requirements, in your linux or windows terminal write the following command:
+### 2. Gene Expression (IHC via ImageJ → Python)
+- Immunohistochemistry images were analyzed with the ImageJ macro:
+
+  ```
+  Macro_Imunos_final.ijm
+  ```
+
+  This macro creates **binary mask images** for each IHC-stained slide.
+
+- The Python script `extract_area_proportion_final.py` then walks through the mask folder, counts **positive vs total pixels**, and exports:
+
+  ```bash
+  python extract_area_proportion_final.py <imuno_masks_folder> --threshold 0 --pixel-size-um 0.325
+  ```
+
+- **Main output**:
+  ```
+  <imuno_masks_folder>/area_imunos_marcadas.csv
+  ```
+
+  → with per-image area in pixels², %, and optionally µm².
+
+---
+
+### 3. Joining Information
+- The morphometry and immuno tables can be merged with optional **clinical metadata** (e.g., age, BMI).
+- This is done using:
+  ```bash
+  python df_compilation_plot_final.py <base_path>
+  ```
+- **Main outputs**:
+  - `<base_path>/final_results/final_measurements_table.csv` → merged tidy table  
+  - `<base_path>/final_results/final_measurements_table_pop.csv` → subset (CASE/POP only)  
+  - `<base_path>/final_results/stats_table.csv` → per-type averages  
+  - `<base_path>/final_results/plots/*.png` → saved plots:
+    - Average tissue proportions
+    - Grouped regression plots (e.g., % tissue vs Age, BMI)
+    - Violin & boxplots by type
+    - PCA loadings heatmap
+    - PCA 2D projection
+
+---
+
+## Required Folder Organization
+
+```
+<base_path>/
+├── database_csvs/               # QuPath exported .csvs per image
+├── morpho_results/              # created automatically by script
+├── imuno_results/               # should contain area_imunos_marcadas.csv (from ImageJ masks)
+├── final_results/               # plots and final merged tables
+└── (optional) Planilha_final_04-02.csv   # clinical metadata
+```
+
+---
+
+## Installation
+
+Clone this repository and install requirements:
+
+```bash
+git clone <your-repo-url>
+cd <your-repo-name>
 pip install -r requirements.txt
-3. Use QuPath to annotate images and extract measurements
-4. Paste measurements into an excel spreadsheet
-5. Organize your immunohistochemistry images
-6. Run .ijm imagej macro
-7. Run extract_area_proportion_final.py script to get proper measurements from masks
-8. Run df_compilation_plot_final.py to join histomorphological and immunohistochemical measurements 
+```
+
+**requirements.txt** includes:
+```
+numpy
+pandas
+pillow
+matplotlib
+seaborn
+scipy
+scikit-learn
+```
+
+---
+
+## Running the Workflow
+
+1. **QuPath annotations** → export `.csv` into `<base_path>/database_csvs/`
+2. **Aggregate morphometry**:
+   ```bash
+   python results_to_dataframe_final.py <base_path>
+   ```
+   → outputs `<base_path>/morpho_results/area_morpho.csv`
+
+3. **ImageJ macro**:
+   - Run `Macro_Imunos_final.ijm` in ImageJ/Fiji.
+   - Save resulting masks into `<imuno_masks_folder>`.
+
+4. **Extract immuno mask areas**:
+   ```bash
+   python extract_area_proportion_final.py <imuno_masks_folder> --threshold 0 --pixel-size-um 0.325
+   ```
+   → outputs `<imuno_masks_folder>/area_imunos_marcadas.csv`
+
+5. **Join datasets & generate plots**:
+   ```bash
+   python df_compilation_plot_final.py <base_path>
+   ```
+   → saves merged tables + all plots in `<base_path>/final_results/`
+
+---
+
+## Outputs at a Glance
+
+- **Morphometry (per patient)** → `area_morpho.csv`  
+- **IHC quantification (per image)** → `area_imunos_marcadas.csv`  
+- **Merged table** → `final_measurements_table.csv`  
+- **Stats summary** → `stats_table.csv`  
+- **Plots** → `.png` files inside `final_results/plots/`
