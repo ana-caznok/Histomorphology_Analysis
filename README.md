@@ -4,9 +4,9 @@
 </div>
 
 <h3 align="center">
-  <a href="https://arxiv.org/abs/2212.10156">Paper Link*</a> |
-  <a href="sources/cvpr23_uniad_poster.png">Poster</a> |
-  <a href="https://opendrivelab.com/e2ead/UniAD_plenary_talk_slides.pdf">Slides</a>
+  <a href="">Paper Link*</a> |
+  <a href="https://github.com/ana-caznok/Histomorphology_Analysis/blob/main/Poster%20ICS%20Hoxa11.pdf">Poster ICS</a> |
+  <a href="https://opendrivelab.com/e2ead/UniAD_plenary_talk_slides.pdf">Poster GBO</a>
 </h3>
 
 <br><br>
@@ -25,7 +25,11 @@ It is our hypothesis that due to the low expression of HOXA11 in women with prol
 
 ## Methodology Overview <a name="methodology"></a>
 The computational methodology was divided into three parts: a histomorphological quantification, a immunohistochemical quantification and joining both information into a single dataframe that allows PCA analysis. 
-(INSERIR IMAGEM AQUI) 
+<p align="left">
+  <img src="fluxograma.png" alt="Figure" width="500"/>
+  <br>
+  <em>Figure 1: Overview of Methodology</em>
+</p> 
 
 ### Histomorphology
 HE histopathological images were annotated and masks were created with QuPath. QuPath measurements were exported to an excel table that is than read and analysed by python scripts available in this repository. 
