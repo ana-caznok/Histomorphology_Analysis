@@ -22,13 +22,18 @@ This is the github repository for article: Principal Component Analysis of Utero
 Pelvic organ prolapse (POP) results from the failure of the support mechanisms of the pelvic viscera, resulting in vaginal protrusion and the fall of the pelvic organs through the vaginal canal. The pathophysiology of genital prolapse is multifactorial, in which environmental factors such as lifestyle, parity, and childbirth interact with molecular, endocrine, and genetic factors. The uterosacral ligaments (USL) are composed of collagen, smooth muscle, elastin and nerve bundles. On POP there are histomorphological changes characterized by decreased smooth muscle content, decreased cellularity, alterations in the extracellular matrix (ECM), increased apoptosis, increased inflammation and increased adipocytes. The ECM dysfunction is characterized by alterations in metabolism and distribution of the main proteins, like changes in the proportions of collagen subtypes. 
 Hoxa11 is responsible for development of the female reproductive system and formation of uterosacral ligaments, lower uterine segment, and cervix, and also acts in collagen type III synthesis and matrix metalloproteinase 2 (MMP2) synthesis. HOXA11 regulates morphology and integrity of USLs by promoting cell proliferation and attenuating apoptosis and also regulating extracellular matrix homeostasis. Studies have shown reduced expression of HOXA11 associated with reduced expression of collagens, ECM disfunction and low cellularity in women with POP. 
 It is our hypothesis that due to the low expression of HOXA11 in women with prolapse, there are changes in the uterosacral ligament, as well as the organization of the connective tissue, proportion of smooth muscle and cellularity. Therefore, the objective of this study is to analyze the expression of the HOXA11 gene and its association with the histomorphological alterations in the uterosacral ligament in women with pelvic organs. 
-
-## Methodology Overview <a name="methodology"></a>
-The computational methodology was divided into three parts: a histomorphological quantification, a immunohistochemical quantification and joining both information into a single dataframe that allows PCA analysis. 
 <p align="left">
   <img src="fluxograma.png" alt="Figure" width="500"/>
   <br>
   <em>Figure 1: Overview of Methodology</em>
+</p> 
+
+## Methodology Overview <a name="methodology"></a>
+The computational methodology was divided into three parts: a histomorphological quantification, a immunohistochemical quantification and joining both information into a single dataframe that allows PCA analysis. 
+<p align="left">
+  <img src="fluxograma_computacional.png" alt="Figure" width="500"/>
+  <br>
+  <em>Figure 2: Overview of Computational Workflow</em>
 </p> 
 
 
