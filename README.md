@@ -6,7 +6,7 @@
 <h3 align="center">
   <a href="">Paper Link*</a> |
   <a href="https://github.com/ana-caznok/Histomorphology_Analysis/blob/main/Poster%20ICS%20Hoxa11.pdf">Poster ICS</a> |
-  <a href="https://opendrivelab.com/e2ead/UniAD_plenary_talk_slides.pdf">Poster GBO</a>
+  <a href="https://github.com/ana-caznok/Histomorphology_Analysis/blob/main/Poster%20CBGO%5B1%5D.pdf">Poster GBO</a>
 </h3>
 
 <br><br>
